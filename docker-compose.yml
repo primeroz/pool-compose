@@ -52,8 +52,9 @@ services:
     container_name: monerod
     image: local/monerod:mainnet
     restart: unless-stopped
+    tty: true
     environment:
-      - LOG_LEVEL=3
+      - LOG_LEVEL=0
       - P2P_BIND_IP=0.0.0.0
       - P2P_BIND_PORT=18080
       - RPC_BIND_IP=0.0.0.0
@@ -69,4 +70,6 @@ services:
     expose:
       - 18080
       - 18081
+    ports:
+      - 18080:18080
 
