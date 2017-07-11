@@ -1,0 +1,72 @@
+version: '3'
+
+networks:
+  pool-net:
+    driver: bridge
+
+volumes:
+    monerod: {}
+    wallet: {}
+    certs: {}
+    certs-data: {}
+
+services:
+
+  #prometheus:
+  #  image: prom/prometheus
+  #  container_name: prometheus
+  #  volumes:
+  #    - ./prometheus/:/etc/prometheus/
+  #    - prometheus_data:/prometheus
+  #  command:
+  #    - '-config.file=/etc/prometheus/prometheus.yml'
+  #    - '-storage.local.path=/prometheus'
+  #    - '-alertmanager.url=http://alertmanager:9093'
+  #    - '-storage.local.memory-chunks=100000'
+  #  restart: unless-stopped
+  #  expose:
+  #    - 9090
+  #  #ports:
+  #    #- 9090:9090
+  #  networks:
+  #    - monitor-net
+  #  labels:
+  #    org.label-schema.group: "monitoring"
+
+  #nginx:
+  #  build: ./nginx
+  #  container_name: nginx
+  #  restart: unless-stopped
+  #  networks:
+  #    - pool-net
+  #  volumes:
+  #    - certs:/etc/letsencrypt
+  #    - certs-data:/data/letsencrypt
+  #    - ./nginx/conf/:/etc/nginx
+  #  ports:
+  #    - 80:80
+  #    - 443:443
+
+  monerod:
+    build: ./monerod
+    container_name: monerod
+    image: local/monerod:mainnet
+    restart: unless-stopped
+    environment:
+      - LOG_LEVEL=3
+      - P2P_BIND_IP=0.0.0.0
+      - P2P_BIND_PORT=18080
+      - RPC_BIND_IP=0.0.0.0
+      - RPC_BIND_PORT=18081
+      - TESTNET=false
+      - BLKCHAIN_BOOTSTRAP=true
+      - BLKCHAIN_VERIFY=0
+    networks:
+      - pool-net
+    volumes:
+      - monerod:/root/.bitmonero
+      - wallet:/wallet
+    expose:
+      - 18080
+      - 18081
+
