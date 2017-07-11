@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 
 networks:
   pool-net:
@@ -7,6 +7,7 @@ networks:
 volumes:
     monerod: {}
     wallet: {}
+    redis: {}
     certs: {}
     certs-data: {}
 
@@ -79,7 +80,7 @@ services:
     container_name: monero_wallet
     image: local/monero_wallet:mainnet
     restart: unless-stopped
-    #tty: true
+    tty: true
     env_file:
       - monero_wallet.env
     environment:
@@ -93,4 +94,19 @@ services:
       - 18082
     ports:
       - 127.0.0.1:18082:18082
+
+
+  redis:
+    build: ./redis
+    container_name: redis
+    image: local/redis:mainnet
+    restart: unless-stopped
+    volumes:
+      - redis:/redis
+      - ./configs/redis.conf:/tmp/redis.conf
+    expose:
+      - 6379
+    command:
+      - redis-server
+      - /tmp/redis.conf
 
