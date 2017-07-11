@@ -73,3 +73,23 @@ services:
     ports:
       - 18080:18080
 
+  monero_wallet:
+    build: ./monero_wallet
+    container_name: monero_wallet
+    image: local/monero_wallet:mainnet
+    restart: unless-stopped
+    tty: true
+    env_file:
+      - monero_wallet.env
+    environment:
+      - RPC_BIND_IP=0.0.0.0
+      - RPC_BIND_PORT=18082
+    networks:
+      - pool-net
+    volumes:
+      - wallet:/wallet
+    expose:
+      - 18082
+    ports:
+      - 18082:18082
+
