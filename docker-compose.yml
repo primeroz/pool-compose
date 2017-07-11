@@ -72,13 +72,14 @@ services:
       - 18081
     ports:
       - 18080:18080
+      #- 127.0.0.1:18081:18081
 
   monero_wallet:
     build: ./monero_wallet
     container_name: monero_wallet
     image: local/monero_wallet:mainnet
     restart: unless-stopped
-    tty: true
+    #tty: true
     env_file:
       - monero_wallet.env
     environment:
@@ -91,5 +92,5 @@ services:
     expose:
       - 18082
     ports:
-      - 18082:18082
+      - 127.0.0.1:18082:18082
 
