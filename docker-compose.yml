@@ -53,9 +53,10 @@ services:
     container_name: monerod
     image: local/monerod:mainnet
     restart: unless-stopped
+    stdin_open: true
     tty: true
     environment:
-      - LOG_LEVEL=0
+      - LOG_LEVEL=1
       - P2P_BIND_IP=0.0.0.0
       - P2P_BIND_PORT=18080
       - RPC_BIND_IP=0.0.0.0
@@ -104,6 +105,8 @@ services:
     volumes:
       - redis:/redis
       - ./configs/redis.conf:/tmp/redis.conf
+    networks:
+      - pool-net
     expose:
       - 6379
     command:
