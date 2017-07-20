@@ -8,6 +8,7 @@ volumes:
     monerod: {}
     wallet: {}
     redis: {}
+    pool: {}
     certs: {}
     certs-data: {}
 
@@ -96,7 +97,6 @@ services:
     ports:
       - 127.0.0.1:18082:18082
 
-
   redis:
     build: ./redis
     container_name: redis
@@ -112,4 +112,30 @@ services:
     command:
       - redis-server
       - /tmp/redis.conf
+
+  # MAKE Sure to update ADDRESS and API PASSWORD in Config.json
+  redis:
+    build: ./cryptonote-universal-pool
+    container_name: pool
+    image: local/cryptonote-universal-pool:latest
+    restart: unless-stopped
+    volumes:
+      - pool:/pool
+      - ./configs/pool/config.json:/cryptonote-universal-pool/config.json
+      - ./configs/pool/config-web.js:/cryptonote-universal-pool/website/config.js
+      - ./configs/pool/home.html:/cryptonote-universal-pool/website/pages/home.html
+      - ./configs/pool/index.html:/cryptonote-universal-pool/website/index.html
+    networks:
+      - pool-net
+    expose:
+      - 8117
+      - 3333
+      - 5555
+      - 7777
+      - 8888
+    ports:
+      - 3333:3333
+      - 5555:5555
+      - 7777:7777
+      - 8888:8888
 
