@@ -114,7 +114,7 @@ services:
       - /tmp/redis.conf
 
   # MAKE Sure to update ADDRESS and API PASSWORD in Config.json
-  redis:
+  pool:
     build: ./cryptonote-universal-pool
     container_name: pool
     image: local/cryptonote-universal-pool:latest
