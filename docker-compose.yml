@@ -51,9 +51,9 @@ services:
   monerod:
     build: ./monerod
     container_name: monerod
-    image: local/monerod:mainnet
+    image: local/monerod:0.10.3.1
     restart: unless-stopped
-    stdin_open: true
+    #stdin_open: true
     tty: true
     environment:
       - LOG_LEVEL=1
@@ -74,12 +74,12 @@ services:
       - 18081
     ports:
       - 18080:18080
-      #- 127.0.0.1:18081:18081
+      - 127.0.0.1:18081:18081
 
   monero_wallet:
     build: ./monero_wallet
     container_name: monero_wallet
-    image: local/monero_wallet:mainnet
+    image: local/monero_wallet:0.10.3.1
     restart: unless-stopped
     tty: true
     env_file:
