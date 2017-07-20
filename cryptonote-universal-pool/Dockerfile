@@ -20,7 +20,8 @@ RUN set -ex && apt-get install -y build-essential \
                                   libminiupnpc-dev \
                                   curl \
                                   libdb4.8-dev \
-                                  libdb4.8++-dev
+                                  libdb4.8++-dev \ 
+                                  man
 
 RUN set -ex && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh > /tmp/install.sh \
             && sh /tmp/install.sh \
@@ -42,11 +43,13 @@ RUN set -ex && apt-get --auto-remove purge -y build-essential \
                                               libboost-all-dev \
                                               libminiupnpc-dev \
                                               libdb4.8-dev \
-                                              libdb4.8++-dev
+                                              libdb4.8++-dev \
+																							man
 
 RUN set -ex && apt-get purge -y --auto-remove \
             && apt-get clean \
-            && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+            && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+            && rm -rf /usr/share/man/* 
 
 
 COPY runpool.sh /runpool.sh
