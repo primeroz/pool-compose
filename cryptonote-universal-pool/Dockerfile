@@ -5,6 +5,7 @@ WORKDIR /tmp
 RUN set -ex && apt-get update -y
 RUN set -ex && apt-get install -y software-properties-common python-software-properties
 RUN set -ex && add-apt-repository ppa:bitcoin/bitcoin
+RUN set -ex && apt-get update -y
 RUN set -ex && apt-get install -y build-essential \
                                   libtool \
                                   autotools-dev \
