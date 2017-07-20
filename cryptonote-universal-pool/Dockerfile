@@ -22,8 +22,7 @@ RUN set -ex && apt-get install -y build-essential \
                                   libdb4.8-dev \
                                   libdb4.8++-dev
 
-RUN set -ex && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh > /tm
-p/install.sh \
+RUN set -ex && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh > /tmp/install.sh \
             && sh /tmp/install.sh \
             && export NVM_DIR="/root/.nvm" && . $NVM_DIR/nvm.sh \
             && nvm install 0.10.25
