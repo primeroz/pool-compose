@@ -139,3 +139,17 @@ services:
       - 7777:7777
       - 8888:8888
 
+  # Update htpasswd (if needed) and hostname in nginx conf sites-enabled
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    image: local/nginx:latest
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
+      - ./configs/nginx:/etc/nginx
+    ports:
+      - 80:80
+      - 443:443
+
+
