@@ -39,12 +39,7 @@ RUN set -ex && mv /tmp/pool /cryptonote-universal-pool
 RUN set -ex && apt-get -qq --auto-remove purge $buildDeps
 RUN set -ex && apt-get --auto-remove purge -y build-essential \
                                               autotools-dev \
-                                              libssl-dev \
-                                              libboost-all-dev \
-                                              libminiupnpc-dev \
-                                              libdb4.8-dev \
-                                              libdb4.8++-dev \
-																							man
+                                              man
 
 RUN set -ex && apt-get purge -y --auto-remove \
             && apt-get clean \
