@@ -1,8 +1,8 @@
-var api = "https://xmr.v9n.us/pool";
+var api = "http://ec2-52-30-39-250.eu-west-1.compute.amazonaws.com/api";
 
 var coinUnits = 1000000000000;
 
-var poolHost = "xmr.v9n.us";
+var poolHost = "ec2-52-30-39-250.eu-west-1.compute.amazonaws.com";
 
 var irc = "irc.freenode.net/#monero-pools";
 

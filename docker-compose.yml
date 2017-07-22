@@ -123,9 +123,6 @@ services:
     volumes:
       - pool:/pool
       - ./configs/pool/config.json:/cryptonote-universal-pool/config.json
-      - ./configs/pool/config-web.js:/cryptonote-universal-pool/website/config.js
-      - ./configs/pool/home.html:/cryptonote-universal-pool/website/pages/home.html
-      - ./configs/pool/index.html:/cryptonote-universal-pool/website/index.html
     networks:
       - pool-net
     expose:
@@ -145,10 +142,13 @@ services:
     build: ./nginx
     container_name: nginx
     image: local/nginx:latest
+    networks:
+      - pool-net
     volumes:
       - certs:/etc/letsencrypt
       - certs-data:/data/letsencrypt
       - ./configs/nginx:/etc/nginx
+      - ./configs/pool-web:/var/www/html
     ports:
       - 80:80
       - 443:443
